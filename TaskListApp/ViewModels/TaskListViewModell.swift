@@ -18,7 +18,9 @@ class TaskListViewModel {
     
     
     func getAll(){
-        
+        tasks = CoreDataManager.shared.getAll().map({ task in
+            TaskViewModel.init(task: task)
+        })
     }
     
     
@@ -51,13 +53,15 @@ class TaskListViewModel {
     
     
     func toggleCompleted(task: TaskViewModel) {
-        
-        getAll()
+       
+        CoreDataManager.shared.toggleCompleted(id: task.id)
+       
     }
     
     
     func deleteItem(task: TaskViewModel) {
         
+        CoreDataManager.shared.delete(id: task.id)
         getAll()
     }
     
